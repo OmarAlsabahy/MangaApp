@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.initializeData()
         viewModel.webToonModelList.observe(this){
-            adapter = MainAdapter(it)
+            adapter = MainAdapter(it , viewModel)
             binding.webToonsRecycler.adapter = adapter
+            binding.progressBar.Gone()
         }
+
 
     }
 }

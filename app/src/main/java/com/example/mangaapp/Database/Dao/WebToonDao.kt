@@ -5,14 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.mangaapp.Database.Models.WebToonModel
 
 @Dao
 interface WebToonDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavourite(webToon:WebToonModel)
-    @Query("select*from webtoon")
+    @Query("select * from webtoon")
+    suspend fun getAllToons():List<WebToonModel>
+    @Update
+    suspend fun addToFavourite(webToonModel: WebToonModel)
+    @Query("select * from webtoon where isFavorite = 1")
     suspend fun getAllFavourites():List<WebToonModel>
-    @Delete
-    suspend fun deleteFromFavourites(webToon: WebToonModel)
+    @Insert
+    suspend fun addToons(webToons:List<WebToonModel>)
+    @Update
+    suspend fun updateDao(webToonModel: WebToonModel)
 }

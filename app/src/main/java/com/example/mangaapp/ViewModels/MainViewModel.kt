@@ -3,9 +3,12 @@ package com.example.mangaapp.ViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mangaapp.Database.Models.WebToonModel
 import com.example.mangaapp.Repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: MainRepository):ViewModel() {
@@ -15,7 +18,16 @@ class MainViewModel @Inject constructor(private val repository: MainRepository):
         get() = _webToonList
 
    fun initializeData(){
-        val data = repository.initializeData()
-        _webToonList.value = data
+       viewModelScope.launch (Dispatchers.IO){
+           val data = repository.getToons()
+           _webToonList.postValue(data)
+       }
+    }
+
+    fun updateRate(webToonModel: WebToonModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateRate(webToonModel)
+        }
+
     }
 }

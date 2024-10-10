@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey
 data class WebToonModel(
     @PrimaryKey
     val id:Int,
-    val title:String,
-    val imageUrl:String,
-    val creator:String,
-    val rating:Float,
-    val description:String
+    var title:String,
+    var imageUrl:String,
+    var creator:String,
+    var rating:Float,
+    var description:String,
+    var isFavorite:Boolean = false
 )

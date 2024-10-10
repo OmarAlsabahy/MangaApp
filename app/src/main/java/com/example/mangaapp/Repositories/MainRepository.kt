@@ -7,6 +7,22 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(private val webToonDao: WebToonDao) {
 
+
+    suspend fun getToons():List<WebToonModel>{
+        val toons = webToonDao.getAllToons()
+        if (toons.isEmpty()){
+            val webToonList = seedHomePage()
+            webToonDao.addToons(webToonList)
+            return webToonList
+        }else{
+            return toons
+        }
+    }
+
+    suspend fun updateRate(webToonModel: WebToonModel){
+        webToonDao.updateDao(webToonModel)
+    }
+
     private fun seedHomePage():List<WebToonModel>{
         val list = listOf(
             WebToonModel(1,"Solo Leveling" ,
@@ -49,10 +65,7 @@ class MainRepository @Inject constructor(private val webToonDao: WebToonDao) {
         return list
     }
 
-     fun initializeData():List<WebToonModel>{
-        val list = seedHomePage()
-        return list
-    }
+
 
 
 }

@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mangaapp.Database.Models.WebToonModel
+import com.example.mangaapp.ViewModels.MainViewModel
 import com.example.mangaapp.databinding.MangaItemBinding
 
-class MainAdapter(private val webToons:List<WebToonModel>):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private val webToons:List<WebToonModel> , private val viewModel : MainViewModel):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MangaItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -24,9 +25,14 @@ class MainAdapter(private val webToons:List<WebToonModel>):RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(webToons[position])
+        holder.binding.rateBar.setOnRatingBarChangeListener { _, rating, _ ->
+            var currentWebToons = webToons[position]
+            currentWebToons.rating = rating
+            viewModel.updateRate(currentWebToons)
+        }
     }
 
-    inner class ViewHolder(private val binding: MangaItemBinding):RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: MangaItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(webToonModel: WebToonModel) {
             binding.mangaTitle.text = webToonModel.title
             Glide.with(binding.root)
@@ -34,7 +40,11 @@ class MainAdapter(private val webToons:List<WebToonModel>):RecyclerView.Adapter<
                 .override(binding.mangaImage.width , binding.mangaImage.height)
                 .fitCenter()
                 .into(binding.mangaImage)
+            binding.rateBar.rating = webToonModel.rating
         }
+
+
+
 
     }
 
