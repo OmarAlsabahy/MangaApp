@@ -30,8 +30,10 @@ class MainActivity : AppCompatActivity() , onWebToonClick , Toast{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        //set toolbar color
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(getColor(R.color.toolBarColor)))
 
+        //set adapter
         viewModel.initializeData()
         viewModel.webToonModelList.observe(this){
             adapter = HomeAdapter(it , viewModel , this,this)
@@ -41,15 +43,19 @@ class MainActivity : AppCompatActivity() , onWebToonClick , Toast{
 
     }
 
+    //refresh data when returns from details activity
     override fun onResume() {
         super.onResume()
         viewModel.refreshData()
     }
 
+    //create menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater.inflate(R.menu.main_toolbar, menu)
         return  true
     }
+
+    //navigate to favourites activity on selecting favourite from menu
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.favourites){
@@ -60,12 +66,15 @@ class MainActivity : AppCompatActivity() , onWebToonClick , Toast{
         return true
     }
 
+    //navigate to details activity on clicking webtoon
+
     override fun onclick(id: Int) {
         val navigateIntent = Intent(this , DetailsActivity::class.java)
         navigateIntent.putExtra("webToonId" , id)
         startActivity(navigateIntent)
     }
 
+    //show toast message
     override fun toastMessage(message: String) {
         showToast(message)
     }

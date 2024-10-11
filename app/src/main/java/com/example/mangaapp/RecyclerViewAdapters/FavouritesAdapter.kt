@@ -29,11 +29,14 @@ class FavouritesAdapter(private val webToons : List<WebToonModel> , private val 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentWebToon = webToons[position]
         holder.bind(currentWebToon)
+        //setup favourite button listner
         holder.binding.favourite.setOnClickListener {
+            //remove from favourites
             removeFromFavourites(currentWebToon)
 
         }
 
+        //setup on item clicked
         holder.binding.root.setOnClickListener {
             onWebToonClick.onclick(currentWebToon.id)
         }

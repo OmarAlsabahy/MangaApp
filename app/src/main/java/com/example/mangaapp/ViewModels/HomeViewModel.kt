@@ -17,6 +17,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository):
     val webToonModelList : LiveData<List<WebToonModel>>
         get() = _webToonList
 
+
    fun initializeData(){
        viewModelScope.launch (Dispatchers.IO){
            val data = repository.getToons()

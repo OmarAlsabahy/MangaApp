@@ -27,11 +27,12 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        var isResetting = false
+        //bind data to view holder
         holder.bind(webToons[position])
 
-
+        //check if the rating bar is being reset
+        var isResetting = false
+        //set on rating change listener
         holder.binding.rateBar.setOnRatingBarChangeListener { _, rating, _ ->
             if (!isResetting)
             {
@@ -44,7 +45,7 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
 
         }
 
-
+        //set on favourite click listener
         holder.binding.favourite.setOnClickListener {
 
           var currentWebToont = webToons[position]
@@ -58,6 +59,7 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
             onWebToonClick.onclick(webToons[position].id)
         }
     }
+    //check if webToon is already in favourites or not then add or remove it
 
     private fun addToFavourite(currentWebToon: WebToonModel) {
         if (currentWebToon.isFavorite){
@@ -68,15 +70,20 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
         }
     }
 
+    //remove webtoon from favourites
+
     private fun removeFromFavourite(currentWebToon: WebToonModel) {
         currentWebToon.isFavorite = false
         viewModel.removeFromFavourite(currentWebToon)
     }
 
+    //reset the rating bar to default
+
     private fun resetToDefault(holder: ViewHolder) {
         holder.binding.rateBar.rating = 0f
     }
 
+    //calculate and update average rating
     private fun updateRate(currentWebToons: WebToonModel, rating: Float) {
         currentWebToons.rating = rating
         currentWebToons.numberOfratings++
@@ -85,6 +92,7 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
         viewModel.updateRate(currentWebToons)
     }
 
+    //creating recycler view view holder
     inner class ViewHolder(val binding: MangaItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(webToonModel: WebToonModel) {
             binding.mangaTitle.text = webToonModel.title
