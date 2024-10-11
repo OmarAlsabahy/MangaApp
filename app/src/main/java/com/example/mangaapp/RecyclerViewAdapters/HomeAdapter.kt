@@ -75,6 +75,7 @@ class HomeAdapter(private val webToons:List<WebToonModel>, private val viewModel
     private fun removeFromFavourite(currentWebToon: WebToonModel) {
         currentWebToon.isFavorite = false
         viewModel.removeFromFavourite(currentWebToon)
+        viewModel.refreshData()
     }
 
     //reset the rating bar to default
