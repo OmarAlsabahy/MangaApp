@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: MainRepository):ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: MainRepository):ViewModel() {
 
    private val _webToonList = MutableLiveData<List<WebToonModel>>()
     val webToonModelList : LiveData<List<WebToonModel>>
@@ -41,5 +41,13 @@ class MainViewModel @Inject constructor(private val repository: MainRepository):
             repository.removeFromFavourite(webToonModel)
         }
 
+
+    }
+
+    fun refreshData(){
+        viewModelScope.launch (Dispatchers.IO){
+            val toons = repository.getToons()
+            _webToonList.postValue(toons)
+        }
     }
 }

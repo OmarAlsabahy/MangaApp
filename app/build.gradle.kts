@@ -62,4 +62,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.sdp.android)
     implementation(libs.glide)
+    implementation (libs.androidx.fragment.ktx)
+
 }

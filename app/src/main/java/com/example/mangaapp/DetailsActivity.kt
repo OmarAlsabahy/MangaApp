@@ -1,5 +1,6 @@
 package com.example.mangaapp
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -27,6 +28,7 @@ class DetailsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.toolBarColor)))
 
         val webToonId = intent.getIntExtra("webToonId" , 0)
         viewModel.getWebToon(webToonId)
@@ -39,7 +41,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun bindData(webToonModel: WebToonModel) {
         binding.txtTitle.text = webToonModel.title
-        binding.rate.text = webToonModel.avergaOfRating.toString()
+        binding.rate.text = String.format("%.1f", webToonModel.avergaOfRating)
         binding.description.text = webToonModel.description
         binding.creatorName.text = webToonModel.creator
         Glide.with(this)

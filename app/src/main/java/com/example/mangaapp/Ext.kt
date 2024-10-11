@@ -10,3 +10,6 @@ fun View.Gone(){
 fun AppCompatActivity.showToast(message:String){
     Toast.makeText(this , message , Toast.LENGTH_SHORT).show()
 }
+fun View.Visiblie(){
+    visibility = View.VISIBLE
+}
