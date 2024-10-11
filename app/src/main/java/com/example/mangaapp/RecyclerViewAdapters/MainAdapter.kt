@@ -36,6 +36,7 @@ class MainAdapter(private val webToons:List<WebToonModel> , private val viewMode
         holder.binding.favourite.setOnClickListener {
 
           var currentWebToont = webToons[position]
+
             if (currentWebToont.isFavorite){
                 currentWebToont.isFavorite = false
                 viewModel.removeFromFavourite(currentWebToont)

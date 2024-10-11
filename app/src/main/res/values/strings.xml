@@ -2,4 +2,8 @@
     <string name="app_name">MangaApp</string>
     <string name="title">Title</string>
     <string name="webtoons">WebToons</string>
+    <string name="example">example</string>
+    <string name="creator">Creator:</string>
+    <string name="rating">Rating:</string>
+    <string name="description">Description:</string>
 </resources>

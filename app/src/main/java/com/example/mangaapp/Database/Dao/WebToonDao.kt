@@ -22,4 +22,6 @@ interface WebToonDao {
     suspend fun updateDao(webToonModel: WebToonModel)
     @Update
     suspend fun removeFromFavourite(webToonModel: WebToonModel)
+    @Query("select * from webtoon where id =:toonId")
+    suspend fun getWebToonById(toonId:Int):WebToonModel
 }
