@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() , onWebToonClick , Toast{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val onbackDispatcher = onBackPressedDispatcher
+        onbackDispatcher.addCallback(this , object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                finishAffinity()
+            }
+        })
         //set toolbar color
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(getColor(R.color.toolBarColor)))
 
