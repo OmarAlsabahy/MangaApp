@@ -13,7 +13,7 @@ import com.example.mangaapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() , onWebToonClick{
+class MainActivity : AppCompatActivity() , onWebToonClick , Toast{
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: MainAdapter
     val viewModel:MainViewModel by viewModels()
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() , onWebToonClick{
         }
         viewModel.initializeData()
         viewModel.webToonModelList.observe(this){
-            adapter = MainAdapter(it , viewModel , this)
+            adapter = MainAdapter(it , viewModel , this,this)
             binding.webToonsRecycler.adapter = adapter
             binding.progressBar.Gone()
         }
@@ -40,5 +40,9 @@ class MainActivity : AppCompatActivity() , onWebToonClick{
         val navigateIntent = Intent(this , DetailsActivity::class.java)
         navigateIntent.putExtra("webToonId" , id)
         startActivity(navigateIntent)
+    }
+
+    override fun toastMessage(message: String) {
+        showToast(message)
     }
 }

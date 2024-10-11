@@ -12,5 +12,7 @@ data class WebToonModel(
     var creator:String,
     var rating:Float,
     var description:String,
-    var isFavorite:Boolean = false
+    var isFavorite:Boolean = false,
+    var numberOfratings:Int = 0,
+    var avergaOfRating:Float = 0f
 )

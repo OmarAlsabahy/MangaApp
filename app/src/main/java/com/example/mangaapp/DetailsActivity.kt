@@ -39,7 +39,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun bindData(webToonModel: WebToonModel) {
         binding.txtTitle.text = webToonModel.title
-        binding.rate.text = webToonModel.rating.toString()
+        binding.rate.text = webToonModel.avergaOfRating.toString()
         binding.description.text = webToonModel.description
         binding.creatorName.text = webToonModel.creator
         Glide.with(this)

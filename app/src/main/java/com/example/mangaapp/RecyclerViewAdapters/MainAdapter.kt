@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mangaapp.Database.Models.WebToonModel
 import com.example.mangaapp.R
+import com.example.mangaapp.Toast
 import com.example.mangaapp.ViewModels.MainViewModel
 import com.example.mangaapp.databinding.MangaItemBinding
 import com.example.mangaapp.onWebToonClick
 
-class MainAdapter(private val webToons:List<WebToonModel> , private val viewModel : MainViewModel , private val onWebToonClick: onWebToonClick):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private val webToons:List<WebToonModel> , private val viewModel : MainViewModel , private val onWebToonClick: onWebToonClick, private val toast: Toast):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MangaItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -31,8 +32,14 @@ class MainAdapter(private val webToons:List<WebToonModel> , private val viewMode
         holder.binding.rateBar.setOnRatingBarChangeListener { _, rating, _ ->
             var currentWebToons = webToons[position]
             currentWebToons.rating = rating
+            currentWebToons.numberOfratings++
+            currentWebToons.avergaOfRating = (currentWebToons.avergaOfRating + rating)/(currentWebToons.numberOfratings)
+            holder.binding.rateBar.rating = 0f
+            toast.toastMessage("Rating Added")
             viewModel.updateRate(currentWebToons)
         }
+
+
         holder.binding.favourite.setOnClickListener {
 
           var currentWebToont = webToons[position]
@@ -61,13 +68,10 @@ class MainAdapter(private val webToons:List<WebToonModel> , private val viewMode
                 .override(binding.mangaImage.width , binding.mangaImage.height)
                 .fitCenter()
                 .into(binding.mangaImage)
-            binding.rateBar.rating = webToonModel.rating
             if (webToonModel.isFavorite){
                 binding.favourite.setImageResource(R.drawable.baseline_favorite_filled)
             }
         }
-
-
 
 
     }

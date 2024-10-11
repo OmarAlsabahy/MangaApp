@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.mangaapp.Database.Dao.WebToonDao
 import com.example.mangaapp.Database.Models.WebToonModel
 
-@Database(entities = [WebToonModel::class] , version = 1 , exportSchema = true)
+@Database(entities = [WebToonModel::class] , version = 2 , exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getWebToonDao(): WebToonDao
 }
