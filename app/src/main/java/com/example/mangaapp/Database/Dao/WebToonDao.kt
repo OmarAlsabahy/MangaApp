@@ -20,4 +20,6 @@ interface WebToonDao {
     suspend fun addToons(webToons:List<WebToonModel>)
     @Update
     suspend fun updateDao(webToonModel: WebToonModel)
+    @Update
+    suspend fun removeFromFavourite(webToonModel: WebToonModel)
 }

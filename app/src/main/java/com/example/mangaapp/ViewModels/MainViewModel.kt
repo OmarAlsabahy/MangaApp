@@ -30,4 +30,16 @@ class MainViewModel @Inject constructor(private val repository: MainRepository):
         }
 
     }
+    fun addToFavourite(webToonModel: WebToonModel){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.addToFavourite(webToonModel)
+        }
+    }
+
+    fun removeFromFavourite(webToonModel: WebToonModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.removeFromFavourite(webToonModel)
+        }
+
+    }
 }

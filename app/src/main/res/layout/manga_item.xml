@@ -43,6 +43,19 @@
         app:layout_constraintStart_toEndOf="@id/imageCard"
         app:layout_constraintTop_toBottomOf="@id/mangaTitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_5sdp"        android:id="@+id/rateBar"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:id="@+id/rateBar"
         />
+    <ImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/baseline_favorite_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/favourite"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

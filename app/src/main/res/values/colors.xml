@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="recyclerViewBackground">#f1f3f0</color>
     <color name="titleColor">#acafac</color>
+    <color name="favouriteColor">#FF0000</color>
 </resources>

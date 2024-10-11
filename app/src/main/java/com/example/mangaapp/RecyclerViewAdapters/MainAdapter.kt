@@ -2,13 +2,16 @@ package com.example.mangaapp.RecyclerViewAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mangaapp.Database.Models.WebToonModel
+import com.example.mangaapp.R
 import com.example.mangaapp.ViewModels.MainViewModel
 import com.example.mangaapp.databinding.MangaItemBinding
+import com.example.mangaapp.onWebToonClick
 
-class MainAdapter(private val webToons:List<WebToonModel> , private val viewModel : MainViewModel):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private val webToons:List<WebToonModel> , private val viewModel : MainViewModel , private val onWebToonClick: onWebToonClick):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MangaItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -30,6 +33,23 @@ class MainAdapter(private val webToons:List<WebToonModel> , private val viewMode
             currentWebToons.rating = rating
             viewModel.updateRate(currentWebToons)
         }
+        holder.binding.favourite.setOnClickListener {
+
+          var currentWebToont = webToons[position]
+            if (currentWebToont.isFavorite){
+                currentWebToont.isFavorite = false
+                viewModel.removeFromFavourite(currentWebToont)
+            }else{
+                currentWebToont.isFavorite = true
+                viewModel.addToFavourite(currentWebToont)
+            }
+
+            notifyItemChanged(position)
+        }
+
+        holder.binding.root.setOnClickListener{
+            onWebToonClick.onclick(webToons[position].id)
+        }
     }
 
     inner class ViewHolder(val binding: MangaItemBinding):RecyclerView.ViewHolder(binding.root){
@@ -41,6 +61,9 @@ class MainAdapter(private val webToons:List<WebToonModel> , private val viewMode
                 .fitCenter()
                 .into(binding.mangaImage)
             binding.rateBar.rating = webToonModel.rating
+            if (webToonModel.isFavorite){
+                binding.favourite.setImageResource(R.drawable.baseline_favorite_filled)
+            }
         }
 
 

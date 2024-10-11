@@ -1,5 +1,6 @@
 package com.example.mangaapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -12,7 +13,7 @@ import com.example.mangaapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , onWebToonClick{
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: MainAdapter
     val viewModel:MainViewModel by viewModels()
@@ -28,11 +29,16 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.initializeData()
         viewModel.webToonModelList.observe(this){
-            adapter = MainAdapter(it , viewModel)
+            adapter = MainAdapter(it , viewModel , this)
             binding.webToonsRecycler.adapter = adapter
             binding.progressBar.Gone()
         }
 
+    }
 
+    override fun onclick(id: Int) {
+        val navigateIntent = Intent(this , DetailsActivity::class.java)
+        navigateIntent.putExtra("webToonId" , id)
+        startActivity(navigateIntent)
     }
 }

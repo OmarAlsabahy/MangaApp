@@ -23,6 +23,14 @@ class MainRepository @Inject constructor(private val webToonDao: WebToonDao) {
         webToonDao.updateDao(webToonModel)
     }
 
+    suspend fun addToFavourite(webToonModel: WebToonModel){
+        webToonDao.addToFavourite(webToonModel)
+    }
+    suspend fun removeFromFavourite(webToonModel: WebToonModel)
+    {
+        webToonDao.removeFromFavourite(webToonModel)
+    }
+
     private fun seedHomePage():List<WebToonModel>{
         val list = listOf(
             WebToonModel(1,"Solo Leveling" ,
